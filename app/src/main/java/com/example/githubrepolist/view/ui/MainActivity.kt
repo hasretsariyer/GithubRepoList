@@ -3,10 +3,12 @@ package com.example.githubrepolist.view.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubrepolist.R
+import com.example.githubrepolist.api.ApiClient
 import com.example.githubrepolist.api.RetrofitInterface
 import com.example.githubrepolist.model.GithubRepoModel
 import com.example.githubrepolist.view.adapter.GithubRepoAdapter
@@ -24,16 +26,34 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
-    private val GITHUB_BASE_URL = "https://api.github.com/users/hasretsariyer/"
     private var subscription: Subscription? = null
+    private var adapter: GithubRepoAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setAdapter()
+    }
 
-        val service: RetrofitInterface = getRetrofitInstance().create(
-            RetrofitInterface::class.java
+    private fun setAdapter() {
+        adapter = GithubRepoAdapter(emptyList())
+        val layoutManager: RecyclerView.LayoutManager =
+            LinearLayoutManager(this@MainActivity)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                recyclerView.context,
+                DividerItemDecoration.VERTICAL
+            )
         )
+        recyclerView.adapter = adapter
+    }
+
+    fun fetchAllRepos(view: View) {
+        val service: RetrofitInterface =
+            ApiClient.getApiClient(userNameTextView.text.toString()).create(
+                RetrofitInterface::class.java
+            )
 
         subscription = service.getUserRepos()
             .subscribeOn(Schedulers.io())
@@ -50,29 +70,8 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onNext(gitHubRepos: List<GithubRepoModel>) {
                     Log.d("@@TAG", "In onNext()")
-                    val adapter = GithubRepoAdapter(gitHubRepos)
-                    val layoutManager: RecyclerView.LayoutManager =
-                        LinearLayoutManager(this@MainActivity)
-                    recyclerView.layoutManager = layoutManager
-                    recyclerView.addItemDecoration(
-                        DividerItemDecoration(
-                            recyclerView.context,
-                            DividerItemDecoration.VERTICAL
-                        )
-                    )
-                    recyclerView.adapter = adapter
+                    adapter!!.updateData(gitHubRepos)
                 }
             })
-    }
-
-    private fun getRetrofitInstance(): Retrofit {
-        val gson: Gson =
-            GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create()
-        return Retrofit.Builder().baseUrl(GITHUB_BASE_URL)
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-
     }
 }

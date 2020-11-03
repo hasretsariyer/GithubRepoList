@@ -20,6 +20,7 @@
 
         <Button
             android:text="@string/submit_btn_text"
+            android:onClick="fetchAllRepos"
             android:layout_weight="1.0"
             android:layout_width="0dp"
             android:layout_height="wrap_content">

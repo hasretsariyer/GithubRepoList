@@ -10,7 +10,7 @@ import com.example.githubrepolist.model.GithubRepoModel
 
 class GithubRepoAdapter(gitHubRepos: List<GithubRepoModel>) :
     RecyclerView.Adapter<GithubRepoAdapter.CustomViewHolder>() {
-    private val dataList: List<GithubRepoModel> = gitHubRepos
+    private var dataList: List<GithubRepoModel> = gitHubRepos
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val repoNameTextView: TextView = itemView.findViewById(R.id.repoName)
@@ -36,5 +36,10 @@ class GithubRepoAdapter(gitHubRepos: List<GithubRepoModel>) :
                 Log.i("@@TAG", "clicked index: " + holder.adapterPosition)
             }
         }
+    }
+
+    fun updateData(repos: List<GithubRepoModel>) {
+        dataList = repos
+        notifyDataSetChanged()
     }
 }
