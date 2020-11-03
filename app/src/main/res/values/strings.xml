@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GithubRepoList</string>
+    <string name="submit_btn_text">Submit</string>
+    <string name="user_name_hint">Username</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
