@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         setAdapter()
     }
 
+    override fun onPause() {
+        subscription!!.unsubscribe()
+        super.onPause()
+    }
+
     private fun setAdapter() {
         adapter = GithubRepoAdapter(emptyList())
         val layoutManager: RecyclerView.LayoutManager =
