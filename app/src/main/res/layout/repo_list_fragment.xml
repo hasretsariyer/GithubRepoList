@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.DetailFragment">
+    tools:context=".view.ui.RepoListFragment">
 
-    <include layout="@layout/repo_detail_layout" />
+    <include layout="@layout/repo_list_layout" />
 
 </FrameLayout>

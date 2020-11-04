@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubrepolist.R
 import com.example.githubrepolist.model.GithubRepoModel
 
-class GithubRepoAdapter(gitHubRepos: List<GithubRepoModel>) :
+class GithubRepoAdapter() :
     RecyclerView.Adapter<GithubRepoAdapter.CustomViewHolder>() {
-    private var dataList: List<GithubRepoModel> = gitHubRepos
+    private var dataList: List<GithubRepoModel> = emptyList()
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val repoNameTextView: TextView = itemView.findViewById(R.id.repoName)
@@ -34,6 +36,10 @@ class GithubRepoAdapter(gitHubRepos: List<GithubRepoModel>) :
         holder.itemView.setOnClickListener{
             if (holder.adapterPosition != RecyclerView.NO_POSITION) {
                 Log.i("@@TAG", "clicked index: " + holder.adapterPosition)
+                val bundle = bundleOf(
+                    Pair("starCount", dataList.get(position).starCount)
+                )
+                holder.itemView.findNavController().navigate(R.id.action_repoListFragment_to_repoDetailFragment, bundle)
             }
         }
     }

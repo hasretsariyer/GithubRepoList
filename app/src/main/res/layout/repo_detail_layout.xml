@@ -1,51 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-        android:id="@+id/avatarImgView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="@dimen/view_padding"
-        android:layout_marginEnd="@dimen/view_padding"
-        android:background="@color/colorAccent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/ownerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Owner: "
-        android:paddingStart="@dimen/view_padding"
-        android:paddingEnd="@dimen/view_padding"
-        app:layout_constraintStart_toEndOf="@+id/avatarImgView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/avatarImgView"
-        />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.githubrepolist.viewmodel.RepoDetailViewModel" />
+    </data>
 
-    <TextView
-        android:id="@+id/starTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stars: "
-        android:paddingTop="@dimen/view_padding"
-        android:paddingStart="@dimen/view_padding"
-        android:paddingEnd="@dimen/view_padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatarImgView"
-        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Open issues: "
-        android:paddingTop="@dimen/view_padding"
-        android:paddingStart="@dimen/view_padding"
-        android:paddingEnd="@dimen/view_padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/starTextView"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/avatarImgView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="@dimen/view_padding"
+            android:layout_marginEnd="@dimen/view_padding"
+            android:background="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ownerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/view_padding"
+            android:paddingEnd="@dimen/view_padding"
+            app:layout_constraintBottom_toBottomOf="@+id/avatarImgView"
+            app:layout_constraintStart_toEndOf="@+id/avatarImgView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/starTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/view_padding"
+            android:paddingTop="@dimen/view_padding"
+            android:paddingEnd="@dimen/view_padding"
+            android:text="@{`Stars: ` + viewModel.starCount}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatarImgView" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/view_padding"
+            android:paddingTop="@dimen/view_padding"
+            android:paddingEnd="@dimen/view_padding"
+            android:text="@{`Open issues: ` + viewModel.openIssues}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/starTextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
