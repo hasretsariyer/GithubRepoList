@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class GithubRepoOwner(
     @SerializedName("avatar_url")
-    val userAvatar: String,
+    val avatarUrl: String,
     @SerializedName("login")
     val name: String
 ) : Serializable

@@ -10,25 +10,9 @@
         android:name="com.example.githubrepolist.view.ui.DetailFragment"
         android:label="RepoDetailFragment">
         <argument
-            android:name="starCount"
-            android:defaultValue="0"
-            app:argType="string" />
-        <argument
-            android:name="openIssues"
-            android:defaultValue="0"
-            app:argType="string" />
-        <argument
-            android:name="repoName"
-            app:nullable="false"
-            app:argType="string" />
-        <argument
-            android:name="owner"
-            app:nullable="false"
-            app:argType="string" />
-        <argument
-            android:name="avatarUrl"
-            app:nullable="false"
-            app:argType="string" />
+            android:name="serilazableModel"
+            app:argType="com.example.githubrepolist.model.GithubRepoModel"
+             />
     </fragment>
 
     <fragment

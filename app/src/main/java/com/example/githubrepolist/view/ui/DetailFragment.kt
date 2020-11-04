@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.githubrepolist.R
+import com.example.githubrepolist.model.GithubRepoModel
 import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.repo_detail_layout.*
@@ -15,17 +16,19 @@ import kotlinx.android.synthetic.main.repo_detail_layout.*
 class DetailFragment : Fragment() {
     private var starCount: Int? = null
     private var repoName: String? = null
-    private var openIssues: Int? = null
+    private var openIssues: String? = null
     private var owner: String? = null
     private var avatarUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        starCount = arguments?.getInt("starCount")
-        openIssues = arguments?.getInt("openIssues")
-        repoName = arguments?.getString("repoName")
-        owner = arguments?.getString("owner")
-        avatarUrl = arguments?.getString("avatarUrl")
+        val repoModel = arguments?.getSerializable("repoModel") as GithubRepoModel
+
+        starCount = repoModel.starCount
+        openIssues = repoModel.openIssues
+        repoName = repoModel.name
+        owner = repoModel.owner.name
+        avatarUrl = repoModel.owner.avatarUrl
     }
 
     override fun onCreateView(
@@ -43,7 +46,7 @@ class DetailFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = repoName
         starTextView.text = starTextView.text.toString() + starCount
         openIssuesTextView.text = openIssuesTextView.text.toString() + openIssues
-        ownerTextView.text = openIssuesTextView.text.toString() + owner
+        ownerTextView.text = ownerTextView.text.toString() + owner
         Picasso.with(activity).load(avatarUrl).into(avatarImgView)
     }
 }
