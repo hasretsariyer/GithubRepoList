@@ -10,8 +10,8 @@
         android:name="com.example.githubrepolist.view.ui.DetailFragment"
         android:label="RepoDetailFragment">
         <argument
-            android:name="url"
-            android:defaultValue="https://www.github.com"
+            android:name="starCount"
+            android:defaultValue="NaN"
             app:argType="string" />
     </fragment>
 

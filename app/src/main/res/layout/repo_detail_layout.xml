@@ -1,12 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.githubrepolist.viewmodel.RepoDetailViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,6 +21,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/view_padding"
             android:paddingEnd="@dimen/view_padding"
+            android:text="Owner: "
             app:layout_constraintBottom_toBottomOf="@+id/avatarImgView"
             app:layout_constraintStart_toEndOf="@+id/avatarImgView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,18 +33,18 @@
             android:paddingStart="@dimen/view_padding"
             android:paddingTop="@dimen/view_padding"
             android:paddingEnd="@dimen/view_padding"
-            android:text="@{`Stars: ` + viewModel.starCount}"
+            android:text="Stars: "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/avatarImgView" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/openIssuesTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/view_padding"
             android:paddingTop="@dimen/view_padding"
             android:paddingEnd="@dimen/view_padding"
-            android:text="@{`Open issues: ` + viewModel.openIssues}"
+            android:text="Open issues"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/starTextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>

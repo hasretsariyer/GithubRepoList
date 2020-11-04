@@ -37,7 +37,9 @@ class GithubRepoAdapter() :
             if (holder.adapterPosition != RecyclerView.NO_POSITION) {
                 Log.i("@@TAG", "clicked index: " + holder.adapterPosition)
                 val bundle = bundleOf(
-                    Pair("starCount", dataList.get(position).starCount)
+                    Pair("starCount", dataList.get(position).starCount.toString()),
+                    Pair("openIssues", dataList.get(position).openIssues),
+                    Pair("repoName", dataList.get(position).name)
                 )
                 holder.itemView.findNavController().navigate(R.id.action_repoListFragment_to_repoDetailFragment, bundle)
             }
