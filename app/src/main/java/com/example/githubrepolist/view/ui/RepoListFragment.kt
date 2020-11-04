@@ -14,7 +14,6 @@ import com.example.githubrepolist.api.ApiClient
 import com.example.githubrepolist.api.RetrofitInterface
 import com.example.githubrepolist.model.GithubRepoModel
 import com.example.githubrepolist.view.adapter.GithubRepoAdapter
-import com.example.githubrepolist.viewmodel.RepoListViewModel
 
 import kotlinx.android.synthetic.main.repo_list_layout.*
 

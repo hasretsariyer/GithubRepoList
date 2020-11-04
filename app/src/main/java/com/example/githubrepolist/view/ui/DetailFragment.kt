@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import com.example.githubrepolist.R
 import com.squareup.picasso.Picasso
 
@@ -16,6 +15,8 @@ class DetailFragment : Fragment() {
     private var starCount: Int? = null
     private var repoName: String? = null
     private var openIssues: Int? = null
+    private var owner: String? = null
+    private var avatarUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,8 @@ class DetailFragment : Fragment() {
             starCount = it.getInt("starCount")
             openIssues = it.getInt("openIssues")
             repoName = it.getString("repoName")
+            owner = it.getString("owner")
+            avatarUrl = it.getString("avatarUrl")
         }
     }
 
@@ -39,5 +42,7 @@ class DetailFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = repoName
         starTextView.text = "Star: " + starCount
         openIssuesTextView.text = "Open issues: " + openIssues
+        ownerTextView.text = "Owner: " + owner
+        Picasso.with(activity).load(avatarUrl).into(avatarImgView)
     }
 }

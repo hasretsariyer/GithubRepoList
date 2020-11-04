@@ -39,7 +39,9 @@ class GithubRepoAdapter() :
                 val bundle = bundleOf(
                     Pair("starCount", dataList.get(position).starCount.toString()),
                     Pair("openIssues", dataList.get(position).openIssues),
-                    Pair("repoName", dataList.get(position).name)
+                    Pair("repoName", dataList.get(position).name),
+                    Pair("owner", dataList.get(position).owner.name),
+                    Pair("avatarUrl", dataList.get(position).owner.userAvatar)
                 )
                 holder.itemView.findNavController().navigate(R.id.action_repoListFragment_to_repoDetailFragment, bundle)
             }

@@ -18,7 +18,6 @@ import com.example.githubrepolist.api.ApiClient
 import com.example.githubrepolist.api.RetrofitInterface
 import com.example.githubrepolist.model.GithubRepoModel
 import com.example.githubrepolist.view.adapter.GithubRepoAdapter
-import com.example.githubrepolist.viewmodel.RepoDetailViewModel
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -36,7 +35,6 @@ class MainActivity : AppCompatActivity() {
     private var subscription: Subscription? = null
     private var adapter: GithubRepoAdapter? = null
 
-    private lateinit var viewModel: RepoDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
