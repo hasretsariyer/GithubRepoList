@@ -11,7 +11,23 @@
         android:label="RepoDetailFragment">
         <argument
             android:name="starCount"
-            android:defaultValue="NaN"
+            android:defaultValue="0"
+            app:argType="string" />
+        <argument
+            android:name="openIssues"
+            android:defaultValue="0"
+            app:argType="string" />
+        <argument
+            android:name="repoName"
+            app:nullable="false"
+            app:argType="string" />
+        <argument
+            android:name="owner"
+            app:nullable="false"
+            app:argType="string" />
+        <argument
+            android:name="avatarUrl"
+            app:nullable="false"
             app:argType="string" />
     </fragment>
 

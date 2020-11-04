@@ -24,7 +24,7 @@ import rx.schedulers.Schedulers
 
 class RepoListFragment : Fragment() {
     private var subscription: Subscription? = null
-    private lateinit var adapter: GithubRepoAdapter
+    private var adapter: GithubRepoAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.repo_list_layout, container, false)
@@ -60,13 +60,17 @@ class RepoListFragment : Fragment() {
 
                     override fun onNext(gitHubRepos: List<GithubRepoModel>) {
                         Log.d("@@TAG", "In onNext()")
-                        adapter.updateData(gitHubRepos)
+                        adapter?.updateData(gitHubRepos)
                     }
                 })
         }
     }
 
     private fun setupRecyclerView() {
+        Log.i("@@TAG", "setupRecyclerView")
+        if(adapter != null)
+            return
+        Log.i("@@TAG", "setupRecyclerView createAdapter")
         adapter = GithubRepoAdapter()
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context)

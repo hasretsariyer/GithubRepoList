@@ -1,5 +1,6 @@
 package com.example.githubrepolist.view.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,13 +21,11 @@ class DetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            starCount = it.getInt("starCount")
-            openIssues = it.getInt("openIssues")
-            repoName = it.getString("repoName")
-            owner = it.getString("owner")
-            avatarUrl = it.getString("avatarUrl")
-        }
+        starCount = arguments?.getInt("starCount")
+        openIssues = arguments?.getInt("openIssues")
+        repoName = arguments?.getString("repoName")
+        owner = arguments?.getString("owner")
+        avatarUrl = arguments?.getString("avatarUrl")
     }
 
     override fun onCreateView(
@@ -37,12 +36,14 @@ class DetailFragment : Fragment() {
         return inflater.inflate(R.layout.repo_detail_fragment, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         (activity as AppCompatActivity).supportActionBar?.title = repoName
-        starTextView.text = "Star: " + starCount
-        openIssuesTextView.text = "Open issues: " + openIssues
-        ownerTextView.text = "Owner: " + owner
+        starTextView.text = starTextView.text.toString() + starCount
+        openIssuesTextView.text = openIssuesTextView.text.toString() + openIssues
+        ownerTextView.text = openIssuesTextView.text.toString() + owner
         Picasso.with(activity).load(avatarUrl).into(avatarImgView)
     }
 }
