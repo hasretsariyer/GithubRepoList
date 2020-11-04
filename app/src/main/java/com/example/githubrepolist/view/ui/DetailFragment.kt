@@ -14,21 +14,11 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.repo_detail_layout.*
 
 class DetailFragment : Fragment() {
-    private var starCount: Int? = null
-    private var repoName: String? = null
-    private var openIssues: String? = null
-    private var owner: String? = null
-    private var avatarUrl: String? = null
+    private lateinit var repoModel: GithubRepoModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val repoModel = arguments?.getSerializable("repoModel") as GithubRepoModel
-
-        starCount = repoModel.starCount
-        openIssues = repoModel.openIssues
-        repoName = repoModel.name
-        owner = repoModel.owner.name
-        avatarUrl = repoModel.owner.avatarUrl
+        repoModel = arguments?.getSerializable("repoModel") as GithubRepoModel
     }
 
     override fun onCreateView(
@@ -43,10 +33,10 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = repoName
-        starTextView.text = starTextView.text.toString() + starCount
-        openIssuesTextView.text = openIssuesTextView.text.toString() + openIssues
-        ownerTextView.text = ownerTextView.text.toString() + owner
-        Picasso.with(activity).load(avatarUrl).into(avatarImgView)
+        (activity as AppCompatActivity).supportActionBar?.title = repoModel.name
+        starTextView.text = starTextView.text.toString() + repoModel.starCount
+        openIssuesTextView.text = openIssuesTextView.text.toString() + repoModel.openIssues
+        ownerTextView.text = ownerTextView.text.toString() + repoModel.owner.name
+        Picasso.with(activity).load(repoModel.owner.avatarUrl).into(avatarImgView)
     }
 }
