@@ -34,9 +34,9 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).supportActionBar?.title = repoModel.name
-        starTextView.text = starTextView.text.toString() + repoModel.starCount
-        openIssuesTextView.text = openIssuesTextView.text.toString() + repoModel.openIssues
-        ownerTextView.text = ownerTextView.text.toString() + repoModel.owner.name
+        starTextView.text = "${starTextView.text} ${repoModel.starCount}"
+        openIssuesTextView.text = "${openIssuesTextView.text} ${repoModel.openIssues}"
+        ownerTextView.text = "${ownerTextView.text} ${repoModel.owner.name}"
         Picasso.with(activity).load(repoModel.owner.avatarUrl).into(avatarImgView)
     }
 }

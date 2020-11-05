@@ -11,19 +11,15 @@ var githubBaseUrl = "https://api.github.com/users/"
 
 class ApiClient {
     companion object {
-        private var retrofit: Retrofit? = null
         fun getApiClient(username: String): Retrofit {
             val gson: Gson =
                 GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .create()
 
-            if (retrofit == null) {
-                retrofit = Retrofit.Builder().baseUrl("$githubBaseUrl$username/")
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build()
-            }
-            return retrofit!!
+            return Retrofit.Builder().baseUrl("$githubBaseUrl$username/")
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
         }
     }
 }

@@ -13,6 +13,7 @@ import com.example.githubrepolist.R
 import com.example.githubrepolist.api.ApiClient
 import com.example.githubrepolist.api.RetrofitInterface
 import com.example.githubrepolist.model.GithubRepoModel
+import com.example.githubrepolist.utils.Utils
 import com.example.githubrepolist.view.adapter.GithubRepoAdapter
 
 import kotlinx.android.synthetic.main.repo_list_layout.*
@@ -24,10 +25,14 @@ import rx.schedulers.Schedulers
 
 class RepoListFragment : Fragment() {
     private var subscription: Subscription? = null
-    private var adapter: GithubRepoAdapter? = null
+    private var adapter: GithubRepoAdapter = GithubRepoAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.repo_list_layout, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.repo_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +45,8 @@ class RepoListFragment : Fragment() {
     private fun setClickListener() {
         submitBtn.setOnClickListener {
             progressCircular.visibility = View.VISIBLE
+            Utils.hideKeyBoard(context, it)
+
             val service: RetrofitInterface =
                 ApiClient.getApiClient(userNameEditText.text.toString()).create(
                     RetrofitInterface::class.java
@@ -50,28 +57,20 @@ class RepoListFragment : Fragment() {
                 .subscribe(object : Observer<List<GithubRepoModel>> {
                     override fun onCompleted() {
                         progressCircular.visibility = View.GONE
-                        Log.d("@@TAG", "In onCompleted()")
                     }
 
                     override fun onError(e: Throwable) {
                         e.printStackTrace()
-                        Log.d("@@TAG", "In onError()")
                     }
 
                     override fun onNext(gitHubRepos: List<GithubRepoModel>) {
-                        Log.d("@@TAG", "In onNext()")
-                        adapter?.updateData(gitHubRepos)
+                        adapter.updateData(gitHubRepos)
                     }
                 })
         }
     }
 
     private fun setupRecyclerView() {
-        Log.i("@@TAG", "setupRecyclerView")
-        if(adapter != null)
-            return
-        Log.i("@@TAG", "setupRecyclerView createAdapter")
-        adapter = GithubRepoAdapter()
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
